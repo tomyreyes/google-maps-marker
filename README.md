@@ -9,11 +9,16 @@ In the webpage:
 - Create an input field for an address
 - A button to submit
 
+
 When entering an address through either the enter key or clicking the button, a marker is then placed onto the address' location.
 When entering a new address the marker as well as the map position changes to the new address' location. 
 
-I made the decision to use Redux in case I wanted use what I learned in this project to a larger scale application.
-Along with this, I decided to use map-gl incase I wanted to use their rich selection of overlays in the future.  
+
+## Design and Stack Articulation
+
+I made the decision to use Redux in case I wanted to use what I learned in this project to a larger scale application in the future.
+Along with this, I decided to use map-gl to create a map for me incase I wanted to use their rich selection of overlays in the future.  
+Finally, I decided to include google places-autocomplete to enhance user experience. 
 
 
 ## Technologies Used:
