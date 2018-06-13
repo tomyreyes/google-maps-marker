@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { sendCoordinates } from '../../actions'
@@ -18,24 +18,25 @@ class SearchBar extends Component {
         this.setState({ userInput })
     }
 
-    _handleSelect = (address) => {
-        const { latLng } = this.state
-        this.setState({userInput:address})
-        geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => {
-                this.setState({latLng})
-                this.props.sendCoordinates({latLng})
-    })
-            .catch(error => console.error('Error', error))
+    _handleSelect = address => {
+      const { latLng, name } = this.state
+      this.setState({ userInput: address })
+      geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+          this.setState({ latLng })
+          this.props.sendCoordinates({ latLng })
+        })
+        .catch(error => console.error('Error', error))
     }
 
     _handleButtonPress = () => {
-        geocodeByAddress(this.state.userInput)
+        const { latLng, name, userInput } = this.state
+        geocodeByAddress(userInput)
             .then(results => getLatLng(results[0]))
             .then(latLng => {
                 this.setState({ latLng })
-                this.props.sendCoordinates({ latLng })
+                this.props.sendCoordinates({ latLng }) 
             })
             .catch(error => console.error('Error', error))
     }
