@@ -1,6 +1,6 @@
 # Google Maps 
 
-In 3 hours of work I managed to implement the MVP for this project.
+Due to my work and personal life, I only had 4 hours to work on this test. In 3 hours of work I managed to implement the MVP for this project.
 
 The MVP for this project were as follows:
 
