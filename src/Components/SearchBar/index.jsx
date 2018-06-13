@@ -3,6 +3,7 @@ import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } fro
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { sendCoordinates } from '../../actions'
+import '../../App.css'
 
 class SearchBar extends Component {
     constructor(){
@@ -13,11 +14,11 @@ class SearchBar extends Component {
         }
     }
 
-    handleChange = (userInput) => {
+    _handleChange = (userInput) => {
         this.setState({ userInput })
     }
 
-    handleSelect = (address) => {
+    _handleSelect = (address) => {
         const { latLng } = this.state
         this.setState({userInput:address})
         geocodeByAddress(address)
@@ -29,34 +30,35 @@ class SearchBar extends Component {
             .catch(error => console.error('Error', error))
     }
 
-  
-   
-
-
-    sendCoordinates = () => {
-       
-        console.log('hi')
-        const { latLng } = this.state
-        this.props.sendCoordinates({latLng})
+    _handleButtonPress = () => {
+        geocodeByAddress(this.state.userInput)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => {
+                this.setState({ latLng })
+                this.props.sendCoordinates({ latLng })
+            })
+            .catch(error => console.error('Error', error))
     }
 
     render(){
-        console.log(this.state.latLng)
         return (
+            <div className="map-container">
+            <div className="input-group">
             <PlacesAutocomplete
                 value={this.state.userInput}
-                onChange={this.handleChange}
-                onSelect={this.handleSelect}
+                onChange={this._handleChange}
+                onSelect={this._handleSelect}
+                
             >
                 {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                    <div>
+                    <div className={suggestions.length> 0 ? 'dropdown open' : 'dropdown'}>
                         <input
                             {...getInputProps({
                                 placeholder: 'Search Places ...',
-                                className: 'location-search-input'
+                                className: 'location-search-input form-control'
                             })}
                         />
-                        <div className="autocomplete-dropdown-container">
+                        <ul className="autocomplete-dropdown-container dropdown-menu">
                             {suggestions.map(suggestion => {
                                 const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                                 // inline style for demonstration purpose
@@ -64,15 +66,18 @@ class SearchBar extends Component {
                                     ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                     : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                 return (
-                                    <div {...getSuggestionItemProps(suggestion, { className, style })}>
-                                        <span>{suggestion.description}</span>
-                                    </div>
+                                    <li {...getSuggestionItemProps(suggestion, { className, style })}>
+                                        <a href="#">{suggestion.description}</a>
+                                    </li>
                                 )
                             })}
-                        </div>
+                        </ul>
                     </div>
                 )}
             </PlacesAutocomplete>
+            <span className="input-group-btn"><button className="btn btn-success" onClick={this._handleButtonPress}>Search</button></span>
+            </div>
+            </div>
         )
     }
 }

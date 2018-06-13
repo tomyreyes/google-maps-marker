@@ -1,0 +1,9 @@
+.map-container{
+    margin: 0 auto;
+    width: 400px;
+}
+
+
+.dropdown{
+    position: static;
+}

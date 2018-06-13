@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Google Maps</h1>
+        <h1 className="text-center">Google Maps</h1>
         <SearchBar/>
         <MapContainer/>
         </div>
