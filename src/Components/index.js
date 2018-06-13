@@ -1,4 +1,4 @@
-import { MapContainer } from './MapContainer'
-import { SearchBar } from './SearchBar'
+import  MapContainer  from './MapContainer'
+import  SearchBar  from './SearchBar'
 
 export { MapContainer, SearchBar }

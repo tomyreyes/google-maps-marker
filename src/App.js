@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { MapContainer, SearchBar } from './Components'
 class App extends Component {
   render() {

@@ -1,4 +1,4 @@
-import { CHANGE_COORDINATES } from '../actions'
+import { SEND_COORDINATES } from '../actions'
 
 const initialState = {
     lat: 0,
@@ -7,7 +7,7 @@ const initialState = {
 
 export const coordinatesReducer = (state = initialState, action) => {
     switch(action.type){
-        case CHANGE_COORDINATES:
+        case SEND_COORDINATES:
         return Object.assign({}, state, {lat: action.payload.lat, lng: action.payload.lng})
         default:
         return state
